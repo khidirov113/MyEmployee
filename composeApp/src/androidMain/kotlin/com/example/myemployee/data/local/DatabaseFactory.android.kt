@@ -14,7 +14,6 @@ actual class DatabaseDriverFactory(
             EmployeeDatabase.Schema,
             context,
             "MyEmployeeDatabase.db"
-
         )
     }
 }

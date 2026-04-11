@@ -51,6 +51,11 @@ kotlin {
             //Koin
             implementation(libs.koin.core)
 
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.no.arg)
+
+            implementation(libs.sqldelight.coroutines)
+
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
