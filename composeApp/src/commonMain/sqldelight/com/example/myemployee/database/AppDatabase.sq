@@ -1,0 +1,26 @@
+CREATE TABLE EmployeeDb (
+'id' TEXT PRIMARY KEY NOT NULL,
+'firstName' TEXT NOT NULL,
+'lastName' TEXT NOT NULL,
+'email' TEXT NOT NULL,
+'phone' TEXT NOT NULL,
+'department' TEXT NOT NULL,
+'position' TEXT NOT NULL,
+'image' TEXT NOT NULL
+);
+
+getAllEmployees:
+SELECT * FROM EmployeeDb;
+
+searchEmployees:
+SELECT * FROM EmployeeDb WHERE firstName LIKE ( '%' || :query || '%' ) OR lastName LIKE ('%' || :query || '%' );
+
+getEmployeeById:
+SELECT * FROM EmployeeDb WHERE id = :id;
+
+refresh:
+INSERT OR REPLACE INTO EmployeeDb (id,firstName,lastName,email,phone,department,position,image)
+VALUES (?,?,?,?,?,?,?,?);
+
+clearAllEmployee:
+DELETE FROM EmployeeDb;
