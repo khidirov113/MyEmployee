@@ -55,6 +55,17 @@ kotlin {
             implementation(libs.multiplatform.settings.no.arg)
 
             implementation(libs.sqldelight.coroutines)
+            //Decompose
+            implementation(libs.decompose)
+            implementation(libs.extensions1.compose)
+            implementation(libs.lifecycle)
+            implementation(libs.state.keeper)
+            //MVIKotlin
+            val mvikotlinVersion = "4.0.0" // актуальная версия
+            implementation(libs.mvikotlin)
+            implementation(libs.mvikotlin.main)
+
+
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)

@@ -43,6 +43,9 @@ class Database(
         }
     }
 
+    fun getEmployeeById(id: String): EmployeeDb{
+        return query.getEmployeeById(id = id).executeAsOne()
+    }
     fun clearAllEmployee() {
         query.clearAllEmployee()
     }

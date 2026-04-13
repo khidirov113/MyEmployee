@@ -7,7 +7,6 @@ import com.example.myemployee.data.remote.ApiServiceImpl
 import com.example.myemployee.data.repository.EmployeeRepositoryImpl
 import com.example.myemployee.domain.repository.EmployeeRepository
 import com.example.myemployee.domain.usecase.GetAllEmployee
-import com.example.myemployee.presentation.EmployeeViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -40,9 +39,6 @@ val appModule = module {
 
     factory {
         GetAllEmployee(get())
-    }
-    factory {
-        EmployeeViewModel(get(), get())
     }
 
 }

@@ -7,4 +7,7 @@ interface EmployeeRepository {
 
     suspend fun refresh()
     fun getAll(): Flow<List<Employee>>
+
+    suspend fun getEmployeeById(id: String): Employee
+
 }

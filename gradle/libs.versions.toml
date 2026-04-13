@@ -10,19 +10,28 @@ androidx-espresso = "3.7.0"
 androidx-lifecycle = "2.10.0"
 androidx-testExt = "1.3.0"
 composeMultiplatform = "1.10.3"
+decompose = "3.5.0"
+extensionsCompose = "3.5.0"
 junit = "4.13.2"
 kotlin = "2.3.20"
+lifecycle = "3.3.0"
 material3 = "1.10.0-alpha05"
 ktor = "3.4.2"
 kotlinxCoroutinesAndroid = "1.10.2"
 kotlinxSerializationJson = "1.11.0"
 koin = "4.2.1"
+mvikotlinVersion = "4.3.0"
 sqldelight = "2.3.2"
 settings = "1.3.0"
 
 
 
 [libraries]
+#Decompose
+extensions1-compose = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "extensionsCompose" }
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+state-keeper = { module = "com.arkivanov.essenty:state-keeper", version.ref = "lifecycle" }
+
 #Serialization
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
@@ -38,14 +47,17 @@ ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+#MVIKotlin
+mvikotlin-main = { module = "com.arkivanov.mvikotlin:mvikotlin-main", version.ref = "mvikotlinVersion" }
+mvikotlin = { module = "com.arkivanov.mvikotlin:mvikotlin", version.ref = "mvikotlinVersion" }
 #Sqldeleht
+lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "lifecycle" }
 sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-ios = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
 multiplatform-settings-no-arg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "settings" }
-
 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }

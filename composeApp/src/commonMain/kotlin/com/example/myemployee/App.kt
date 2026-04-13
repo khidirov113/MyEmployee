@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myemployee.domain.usecase.GetAllEmployee
-import com.example.myemployee.presentation.EmployeeViewModel
 import org.jetbrains.compose.resources.painterResource
 
 import myemployee.composeapp.generated.resources.Res
