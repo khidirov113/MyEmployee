@@ -50,6 +50,7 @@ kotlin {
             implementation(libs.ktor.client.logging)
             //Koin
             implementation(libs.koin.core)
+            implementation(libs.insert.koin.koin.compose)
 
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
@@ -61,11 +62,9 @@ kotlin {
             implementation(libs.lifecycle)
             implementation(libs.state.keeper)
             //MVIKotlin
-            val mvikotlinVersion = "4.0.0" // актуальная версия
             implementation(libs.mvikotlin)
             implementation(libs.mvikotlin.main)
-
-
+            implementation(libs.mvikotlin.extensions.coroutines)
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)

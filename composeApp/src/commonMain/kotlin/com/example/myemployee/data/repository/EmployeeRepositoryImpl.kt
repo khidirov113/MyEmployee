@@ -46,4 +46,17 @@ class EmployeeRepositoryImpl(
             throw AppException.NetworkException()
         }
     }
+
+    override fun searchEmployee(query: String): Flow<List<Employee>> {
+        return try {
+            val dbModule = database.searchEmployee(text = query)
+            dbModule.map { list ->
+                list.map {
+                    it.toDomain()
+                }
+            }
+        } catch (e: Exception) {
+            throw AppException.EmptyResultException()
+        }
+    }
 }

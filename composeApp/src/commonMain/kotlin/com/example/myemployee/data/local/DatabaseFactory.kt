@@ -43,9 +43,14 @@ class Database(
         }
     }
 
-    fun getEmployeeById(id: String): EmployeeDb{
+    fun getEmployeeById(id: String): EmployeeDb {
         return query.getEmployeeById(id = id).executeAsOne()
     }
+
+    fun searchEmployee(text: String): Flow<List<EmployeeDb>> {
+        return query.searchEmployees(query = text).asFlow().mapToList(Dispatchers.IO)
+    }
+
     fun clearAllEmployee() {
         query.clearAllEmployee()
     }

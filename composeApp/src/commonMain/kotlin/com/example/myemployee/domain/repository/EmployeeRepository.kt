@@ -10,4 +10,6 @@ interface EmployeeRepository {
 
     suspend fun getEmployeeById(id: String): Employee
 
+    fun searchEmployee(query: String): Flow<List<Employee>>
+
 }

@@ -1,12 +1,16 @@
 package com.example.myemployee.di
 
+import com.arkivanov.mvikotlin.core.store.StoreFactory
+import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import com.example.myemployee.data.local.Database
-import com.example.myemployee.data.local.DatabaseDriverFactory
 import com.example.myemployee.data.remote.ApiService
 import com.example.myemployee.data.remote.ApiServiceImpl
 import com.example.myemployee.data.repository.EmployeeRepositoryImpl
 import com.example.myemployee.domain.repository.EmployeeRepository
 import com.example.myemployee.domain.usecase.GetAllEmployee
+import com.example.myemployee.domain.usecase.GetEmployeeByIdUseCase
+import com.example.myemployee.domain.usecase.GetRefresh
+import com.example.myemployee.domain.usecase.SearchEmployeeUseCase
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -35,10 +39,24 @@ val appModule = module {
         EmployeeRepositoryImpl(get(), get())
     }
 
+    single<StoreFactory> {
+        DefaultStoreFactory()
+    }
+
     single { Database(get()) }
 
     factory {
         GetAllEmployee(get())
+    }
+    factory {
+        GetRefresh(get())
+    }
+
+    factory {
+        GetEmployeeByIdUseCase(get())
+    }
+    factory {
+        SearchEmployeeUseCase(get())
     }
 
 }
