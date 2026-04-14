@@ -65,6 +65,7 @@ kotlin {
             implementation(libs.mvikotlin)
             implementation(libs.mvikotlin.main)
             implementation(libs.mvikotlin.extensions.coroutines)
+            implementation(libs.material.icons.extended)
 
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
