@@ -55,6 +55,10 @@ kotlin {
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
 
+            //Coil
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.okhttp)
+
             implementation(libs.sqldelight.coroutines)
             //Decompose
             implementation(libs.decompose)

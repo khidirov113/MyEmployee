@@ -11,7 +11,8 @@ import com.example.myemployee.domain.usecase.GetAllEmployee
 import com.example.myemployee.domain.usecase.GetEmployeeByIdUseCase
 import com.example.myemployee.domain.usecase.GetRefresh
 import com.example.myemployee.domain.usecase.SearchEmployeeUseCase
-import com.example.myemployee.presentation.empl.mvi.EmplStoreFactory
+import com.example.myemployee.presentation.mvi.details.EmployeeDetailStoreFactory
+import com.example.myemployee.presentation.mvi.list.EmployeeListStoreFactory
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
@@ -62,11 +63,19 @@ val appModule = module {
 
 
     factory {
-        EmplStoreFactory(
+        EmployeeListStoreFactory(
             storeFactory = get(),
             getAllEmployee = get(),
             getRefresh = get(),
             searchEmployeeUseCase = get()
+        ).create()
+    }
+
+    factory {
+        EmployeeDetailStoreFactory(
+            storeFactory = get(),
+            getEmployeeByIdUseCase = get(),
+            employeeId = get()
         ).create()
     }
 

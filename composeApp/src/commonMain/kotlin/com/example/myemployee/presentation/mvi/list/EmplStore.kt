@@ -1,4 +1,4 @@
-package com.example.myemployee.presentation.empl.mvi
+package com.example.myemployee.presentation.mvi.list
 
 import com.arkivanov.mvikotlin.core.store.Store
 import com.example.myemployee.domain.entity.Employee
@@ -8,8 +8,7 @@ interface EmplStore : Store<EmplStore.Intent, EmplStore.State, EmplStore.Label> 
     sealed interface Intent {
         object Refresh : Intent
         class Search(val query: String) : Intent
-
-        object Button : Intent
+        data class EmployeeClicked(val id: String) : Intent
     }
 
     data class State(
@@ -18,11 +17,11 @@ interface EmplStore : Store<EmplStore.Intent, EmplStore.State, EmplStore.Label> 
         val isError: Boolean = false,
         val isEmpty: Boolean = false,
         val searchQuery: String = "",
-        val button: Boolean = false
     )
 
     sealed interface Label {
         data class ShowError(val message: String) : Label
+        data class ClickedEmployee(val employeeId: String) : Label
     }
 
 }

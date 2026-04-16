@@ -1,21 +1,22 @@
 package com.example.myemployee
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
-import com.example.myemployee.data.remote.ApiServiceImpl
 import com.example.myemployee.di.initKoin
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
+
+import com.arkivanov.decompose.defaultComponentContext
+import com.example.myemployee.presentation.root.DefaultRootComponent
+import org.koin.android.ext.android.inject
+import com.example.myemployee.domain.usecase.GetAllEmployee
+import com.example.myemployee.domain.usecase.GetEmployeeByIdUseCase
+import com.example.myemployee.domain.usecase.GetRefresh
+import com.example.myemployee.domain.usecase.SearchEmployeeUseCase
+import com.arkivanov.mvikotlin.core.store.StoreFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,35 +26,29 @@ class MainActivity : ComponentActivity() {
         }
         super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            try {
-                val httpClient = HttpClient {
-                    install(ContentNegotiation) {
-                        json(
-                            Json {
-                                ignoreUnknownKeys = true
-                            }
-                        )
-                    }
-                }
+        val getAllEmployee: GetAllEmployee by inject()
+        val getEmployeeByIdUseCase: GetEmployeeByIdUseCase by inject()
+        val getRefresh: GetRefresh by inject()
+        val searchEmployeeUseCase: SearchEmployeeUseCase by inject()
+        val storeFactory: StoreFactory by inject()
 
-                val data = ApiServiceImpl(httpClient).getAll()
-                Log.d("API_RESULT", "Users: ${data.results}")
-                Log.d("API_RESULT", data.results.first().name.firstName)
-
-            } catch (e: Exception) {
-                Log.e("API_RESULT", "Error: ${e.message}")
-            }
-        }
+        val root = DefaultRootComponent(
+            componentContext = defaultComponentContext(),
+            storeFactory = storeFactory,
+            getAllEmployee = getAllEmployee,
+            getEmployeeByIdUseCase = getEmployeeByIdUseCase,
+            getRefresh = getRefresh,
+            searchEmployeeUseCase = searchEmployeeUseCase
+        )
 
         setContent {
-            App()
+            App(root)
         }
     }
 }
 
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
-}
+//@Preview
+//@Composable
+//fun AppAndroidPreview() {
+//    App()
+//}

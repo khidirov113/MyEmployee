@@ -1,4 +1,4 @@
-package com.example.myemployee.presentation.empl.mvi
+package com.example.myemployee.presentation.mvi.list
 
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.SimpleBootstrapper
@@ -11,21 +11,17 @@ import com.example.myemployee.domain.usecase.GetRefresh
 import com.example.myemployee.domain.usecase.SearchEmployeeUseCase
 import kotlinx.coroutines.launch
 
-class EmplStoreFactory(
+class EmployeeListStoreFactory(
     private val storeFactory: StoreFactory,
     private val getAllEmployee: GetAllEmployee,
     private val getRefresh: GetRefresh,
     private val searchEmployeeUseCase: SearchEmployeeUseCase
 ) {
-    private sealed interface Action {
-        object Init : Action
-    }
-
     fun create(): EmplStore = object : EmplStore,
         Store<EmplStore.Intent, EmplStore.State, EmplStore.Label> by storeFactory.create(
             name = "EmplStore",
             initialState = EmplStore.State(),
-            bootstrapper = SimpleBootstrapper(Action.Init),
+            bootstrapper = SimpleBootstrapper(Unit),
             executorFactory = ::ExecutorImpl,
             reducer = ReducerImpl
         ) {}
@@ -35,15 +31,14 @@ class EmplStoreFactory(
         data class EmployeesLoaded(val list: List<Employee>) : Msg
         data class Error(val isError: Boolean) : Msg
         data class SearchQueryChanged(val query: String) : Msg
-        object Button : Msg
     }
 
     private inner class ExecutorImpl :
-        CoroutineExecutor<EmplStore.Intent, Action, EmplStore.State, Msg, EmplStore.Label>() {
+        CoroutineExecutor<EmplStore.Intent, Unit, EmplStore.State, Msg, EmplStore.Label>() {
 
-        override fun executeAction(action: Action) {
+        override fun executeAction(action: Unit) {
             when (action) {
-                is Action.Init -> {
+                is Unit -> {
                     observerEmployees()
                     refreshEmployees()
                 }
@@ -59,13 +54,13 @@ class EmplStoreFactory(
                     searchEmployees(intent.query)
                 }
 
-                is EmplStore.Intent.Button -> clickButton()
+                is EmplStore.Intent.EmployeeClicked -> {
+                    publish(EmplStore.Label.ClickedEmployee(employeeId = intent.id))
+                }
             }
         }
 
-        private fun clickButton() {
-            dispatch(Msg.Button)
-        }
+
         private fun searchEmployees(query: String) {
             if (query.isEmpty()) {
                 observerEmployees()
@@ -115,8 +110,6 @@ class EmplStoreFactory(
             is Msg.Error -> copy(isError = msg.isError)
             is Msg.Loading -> copy(isLoading = msg.isLoading)
             is Msg.SearchQueryChanged -> copy(searchQuery = msg.query)
-
-            is Msg.Button -> copy(button = button)
         }
     }
 }
